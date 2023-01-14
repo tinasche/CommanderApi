@@ -5,16 +5,9 @@ namespace VersedApi.Data;
 
 public sealed class CommandsContext : DbContext
 {
-    public CommandsContext(IConfiguration configuration)
-    {
-        _configurator = configuration;
-    }
-    DbSet<Command> Commands;
     private IConfiguration _configurator;
+    public CommandsContext(IConfiguration configuration) => _configurator = configuration;
+    DbSet<Command> Commands;
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-        optionsBuilder.UseNpgsql(_configurator.GetConnectionString("CommandConn")).UseCamelCaseNamingConvention();
-        // optionsBuilder.UseNpgsql("host=localhost;user=tinashe;password=P3trificus;database=CommanderDb").UseCamelCaseNamingConvention();
-    }
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) => optionsBuilder.UseNpgsql(_configurator.GetConnectionString("CommandConn")).UseCamelCaseNamingConvention();
 }
