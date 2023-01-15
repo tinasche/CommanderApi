@@ -71,6 +71,19 @@ namespace VersedApi.Controllers
             return NotFound();
         }
 
+        [HttpPut("{id}")]
+        public ActionResult EditCommand(int id, Command commandToEdit)
+        {
+            var editStatus = _service.EditCommand(id, commandToEdit);
+            if (editStatus)
+            {
+                return Ok();
+            } else {
+                return BadRequest();
+            }
+
+        }
+
 
     }
 }

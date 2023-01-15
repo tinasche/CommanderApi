@@ -40,9 +40,23 @@ namespace VersedApi.Services
             return false;
         }
 
-        public void EditCommand(int id, Command editCommand)
+        public bool EditCommand(int id, Command editedCommand)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var commandToEdit = this.GetCommandById(id);
+
+                commandToEdit.CommandString = editedCommand.CommandString;
+                commandToEdit.Description = editedCommand.Description;
+                commandToEdit.Platform = editedCommand.Platform;
+
+                _context.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         public List<Command> GetCommand(string byPlatform)
@@ -60,6 +74,11 @@ namespace VersedApi.Services
         public List<Command> GetCommands()
         {
             return _context.Commands.ToList<Command>();
+        }
+
+        public bool PatchCommand(int id, Command patchCommand)
+        {
+            throw new NotImplementedException();
         }
     }
 }

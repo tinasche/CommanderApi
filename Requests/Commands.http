@@ -4,7 +4,7 @@ GET https://localhost:7188/api/commands HTTP/1.1
 GET https://localhost:7188/api/commands/5 HTTP/1.1
 
 ### get by platform
-GET https://localhost:7188/api/commands/vuejs/1 HTTP/1.1
+GET https://localhost:7188/api/commands/postgres/1 HTTP/1.1
 
 ### add new command
 POST https://localhost:7188/api/commands HTTP/1.1
@@ -18,3 +18,13 @@ content-type: application/json
 
 ### delete by id
 DELETE https://localhost:7188/api/commands/7 HTTP/1.1
+
+### edit command
+PUT https://localhost:7188/api/commands/3 HTTP/1.1
+content-type: application/json
+
+{
+    "commandString": "npm init vue@latest",
+    "description": "create a new vuejs project",
+    "platform": "vuejs"
+}

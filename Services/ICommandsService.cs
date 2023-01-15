@@ -8,8 +8,10 @@ namespace VersedApi.Services
         public List<Command> GetCommand(string byPlatform);
         public Command GetCommandById(int id);
         public bool AddCommand(Command newCommand);
-        public void EditCommand(int id, Command editCommand);
+        public bool EditCommand(int id, Command editCommand);
         public bool DeleteCommand(int id);
-        // TODO: Implement the patch method
+        public bool PatchCommand(int id, Command patchCommand);
+
+
     }
 }
