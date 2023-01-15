@@ -1,0 +1,7 @@
+GET https://localhost:7188/api/commands HTTP/1.1
+
+### get by id
+GET https://localhost:7188/api/commands/3 HTTP/1.1
+
+### get by platform
+GET https://localhost:7188/api/commands/vuejs/1 HTTP/1.1

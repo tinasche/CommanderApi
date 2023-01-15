@@ -1,3 +1,13 @@
 TODO: implement the controller with CRUD actions
 TODO: move from local postgres to cosmos db
-TODO: make swagger available in production
+REFACTOR: make swagger available in production
+FEAT: basic auth security
+
+TODO
+FIXME
+REFACTOR
+DOCS
+STYLE
+TEST
+FEAT
+CHORE
