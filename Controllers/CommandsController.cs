@@ -26,7 +26,7 @@ namespace VersedApi.Controllers
             return Ok(commandsList);
         }
 
-        [HttpGet("{id}", Name="GetById")]
+        [HttpGet("{id}", Name = "GetById")]
         public ActionResult<Command> GetById(int id)
         {
             var command = _service.GetCommandById(id);
@@ -58,6 +58,17 @@ namespace VersedApi.Controllers
                 throw new ArgumentNullException(nameof(newCommand));
             }
             return CreatedAtAction(nameof(GetById), new { Id = newCommand.Id }, newCommand);
+        }
+
+        [HttpDelete("{id}")]
+        public ActionResult DeleteCommand(int id)
+        {
+            var deleteStatus = _service.DeleteCommand(id);
+            if (deleteStatus)
+            {
+                return Ok();
+            }
+            return NotFound();
         }
 
 

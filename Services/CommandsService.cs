@@ -20,15 +20,24 @@ namespace VersedApi.Services
                 _context.SaveChanges();
 
                 return true;
-            } else
+            }
+            else
             {
                 return false;
             }
         }
 
-        public void DeleteCommand(int id)
+        public bool DeleteCommand(int id)
         {
-            throw new NotImplementedException();
+            var commmandToRemove = _context.Commands.FirstOrDefault(c => c.Id == id);
+            if (commmandToRemove != null)
+            {
+                _context.Commands.Remove(commmandToRemove);
+                _context.SaveChanges();
+
+                return true;
+            }
+            return false;
         }
 
         public void EditCommand(int id, Command editCommand)
@@ -44,8 +53,8 @@ namespace VersedApi.Services
 
         public Command GetCommandById(int id)
         {
-            var command = _context.Commands.Find(id);
-            return command;
+            var commandToGet = _context.Commands.FirstOrDefault(c => c.Id == id);
+            return commandToGet;
         }
 
         public List<Command> GetCommands()

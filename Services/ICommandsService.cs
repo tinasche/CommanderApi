@@ -9,7 +9,7 @@ namespace VersedApi.Services
         public Command GetCommandById(int id);
         public bool AddCommand(Command newCommand);
         public void EditCommand(int id, Command editCommand);
-        public void DeleteCommand(int id);
+        public bool DeleteCommand(int id);
         // TODO: Implement the patch method
     }
 }
