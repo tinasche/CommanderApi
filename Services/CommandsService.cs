@@ -24,7 +24,6 @@ namespace VersedApi.Services
             {
                 return false;
             }
-
         }
 
         public void DeleteCommand(int id)

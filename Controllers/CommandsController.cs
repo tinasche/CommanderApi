@@ -26,7 +26,7 @@ namespace VersedApi.Controllers
             return Ok(commandsList);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id}", Name="GetById")]
         public ActionResult<Command> GetById(int id)
         {
             var command = _service.GetCommandById(id);
@@ -49,18 +49,16 @@ namespace VersedApi.Controllers
             return NotFound();
         }
 
-        // [HttpPost]
-        // public ActionResult AddCommand(Command newCommand)
-        // {
-        //     var result = _service.AddCommand(newCommand);
-        //     if (result)
-        //     {
-        //         return Ok();
-        //     }
-
-        //     return CreatedAtRoute(nameof(""),);
-
-        // }
+        [HttpPost]
+        public ActionResult<Command> AddCommand(Command newCommand)
+        {
+            var result = _service.AddCommand(newCommand);
+            if (!result)
+            {
+                throw new ArgumentNullException(nameof(newCommand));
+            }
+            return CreatedAtAction(nameof(GetById), new { Id = newCommand.Id }, newCommand);
+        }
 
 
     }
