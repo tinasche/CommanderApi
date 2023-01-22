@@ -9,19 +9,19 @@ var MyAllowedOrigins = "_myAllowedOrigins";
 // Add services to the container.
 builder.Services.AddCors(options =>
 {
-    // options.AddDefaultPolicy(policy => {
-    //     policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
-    // });
-
-    options.AddPolicy(name: MyAllowedOrigins,
-    policy =>
-    {
-        policy.WithOrigins("http://localhost:5173",
-        "https://commander-he41em2mi-tinasche.vercel.app/",
-        "https://commander-app.vercel.app/")
-        .AllowAnyHeader()
-        .WithMethods("PUT", "DELETE", "POST", "GET");
+    options.AddDefaultPolicy(policy => {
+        policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
     });
+
+    // options.AddPolicy(name: MyAllowedOrigins,
+    // policy =>
+    // {
+    //     policy.WithOrigins("http://localhost:5173",
+    //     "https://commander-he41em2mi-tinasche.vercel.app/",
+    //     "https://commander-app.vercel.app/")
+    //     .AllowAnyHeader()
+    //     .WithMethods("PUT", "DELETE", "POST", "GET");
+    // });
 });
 builder.Services.AddControllers();
 builder.Services.AddRazorPages();
@@ -40,8 +40,8 @@ app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
 
-app.UseCors(MyAllowedOrigins);
-// app.UseCors();
+// app.UseCors(MyAllowedOrigins);
+app.UseCors();
 
 app.UseStaticFiles();
 
