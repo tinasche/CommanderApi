@@ -11,7 +11,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy(name: MyAllowedOrigins,
     policy =>
     {
-        policy.WithOrigins("https://localhost:5173", "https://commander-he41em2mi-tinasche.vercel.app/", "https://commander-app.vercel.app/");
+        policy.WithOrigins("http://localhost:5173", "https://commander-he41em2mi-tinasche.vercel.app/", "https://commander-app.vercel.app/");
     });
 });
 builder.Services.AddControllers();
@@ -32,6 +32,8 @@ app.UseSwaggerUI();
 app.UseHttpsRedirection();
 
 app.UseCors(MyAllowedOrigins);
+
+app.UseStaticFiles();
 
 app.UseAuthorization();
 
