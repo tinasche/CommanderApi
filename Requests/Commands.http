@@ -11,9 +11,9 @@ POST https://localhost:7188/api/commands HTTP/1.1
 content-type: application/json
 
 {
-    "commandString": "npm init vite@latest",
-    "description": "use vite to scaffold a frontend framework project",
-    "platform": "vite"
+    "commandString": "composer create-project codeigniter4/appstarter <projectName>",
+    "description": "create a codeigniter project with composer named <projectName>",
+    "platform": "composer"
 }
 
 ### delete by id
@@ -28,3 +28,5 @@ content-type: application/json
     "description": "create a new vuejs project",
     "platform": "vuejs"
 }
+
+### TODO: Implementation for Patch method
