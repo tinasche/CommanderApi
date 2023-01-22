@@ -16,15 +16,11 @@ builder.Services.AddCors(options =>
     options.AddPolicy(name: MyAllowedOrigins,
     policy =>
     {
-<<<<<<< Updated upstream
-        policy.WithOrigins("http://localhost:5173", "https://commander-he41em2mi-tinasche.vercel.app/", "https://commander-app.vercel.app/");
-=======
         policy.WithOrigins("http://localhost:5173",
         "https://commander-he41em2mi-tinasche.vercel.app/",
         "https://commander-app.vercel.app/")
         .AllowAnyHeader()
         .WithMethods("PUT", "DELETE", "POST", "GET");
->>>>>>> Stashed changes
     });
 });
 builder.Services.AddControllers();
