@@ -1,6 +1,3 @@
-using Microsoft.EntityFrameworkCore;
-using VersedApi.Models;
-
 namespace VersedApi.Data;
 
 public sealed class CommandsContext : DbContext

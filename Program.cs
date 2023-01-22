@@ -1,6 +1,7 @@
 global using VersedApi.Services;
-using Microsoft.EntityFrameworkCore;
-using VersedApi.Data;
+global using Microsoft.EntityFrameworkCore;
+global using VersedApi.Data;
+global using VersedApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 var MyAllowedOrigins = "_myAllowedOrigins";
@@ -8,10 +9,22 @@ var MyAllowedOrigins = "_myAllowedOrigins";
 // Add services to the container.
 builder.Services.AddCors(options =>
 {
+    // options.AddDefaultPolicy(policy => {
+    //     policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+    // });
+
     options.AddPolicy(name: MyAllowedOrigins,
     policy =>
     {
+<<<<<<< Updated upstream
         policy.WithOrigins("http://localhost:5173", "https://commander-he41em2mi-tinasche.vercel.app/", "https://commander-app.vercel.app/");
+=======
+        policy.WithOrigins("http://localhost:5173",
+        "https://commander-he41em2mi-tinasche.vercel.app/",
+        "https://commander-app.vercel.app/")
+        .AllowAnyHeader()
+        .WithMethods("PUT", "DELETE", "POST", "GET");
+>>>>>>> Stashed changes
     });
 });
 builder.Services.AddControllers();
@@ -32,6 +45,7 @@ app.UseSwaggerUI();
 app.UseHttpsRedirection();
 
 app.UseCors(MyAllowedOrigins);
+// app.UseCors();
 
 app.UseStaticFiles();
 

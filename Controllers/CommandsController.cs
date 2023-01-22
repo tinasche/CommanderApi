@@ -1,89 +1,86 @@
 using Microsoft.AspNetCore.Mvc;
-using VersedApi.Models;
 
-namespace VersedApi.Controllers
+namespace VersedApi.Controllers;
+
+[ApiController]
+[Route("api/[controller]")]
+public sealed class CommandsController : ControllerBase
 {
+    private readonly ICommandsService _service;
 
-    [ApiController]
-    [Route("api/[controller]")]
-    public sealed class CommandsController : ControllerBase
+    public CommandsController(ICommandsService service)
     {
-        private readonly ICommandsService _service;
+        _service = service;
+    }
 
-        public CommandsController(ICommandsService service)
+    [HttpGet]
+    public ActionResult<List<Command>> GetCommands()
+    {
+        var commandsList = _service.GetCommands();
+        if (commandsList.Count == 0)
         {
-            _service = service;
+            return NoContent();
+        }
+        return Ok(commandsList);
+    }
+
+    [HttpGet("{id}", Name = "GetById")]
+    public ActionResult<Command> GetById(int id)
+    {
+        var command = _service.GetCommandById(id);
+        if (command != null)
+        {
+            return Ok(command);
         }
 
-        [HttpGet]
-        public ActionResult<List<Command>> GetCommands()
+        return NotFound();
+    }
+
+    [HttpGet("{platform}/1")]
+    public ActionResult<List<Command>> GetByPlatform(string platform)
+    {
+        var commands = _service.GetCommand(platform);
+        if (commands != null)
         {
-            var commandsList = _service.GetCommands();
-            if (commandsList.Count == 0)
-            {
-                return NoContent();
-            }
-            return Ok(commandsList);
+            return Ok(commands);
         }
+        return NotFound();
+    }
 
-        [HttpGet("{id}", Name = "GetById")]
-        public ActionResult<Command> GetById(int id)
+    [HttpPost]
+    public ActionResult<Command> AddCommand(Command newCommand)
+    {
+        var result = _service.AddCommand(newCommand);
+        if (!result)
         {
-            var command = _service.GetCommandById(id);
-            if (command != null)
-            {
-                return Ok(command);
-            }
-
-            return NotFound();
+            throw new ArgumentNullException(nameof(newCommand));
         }
+        return CreatedAtAction(nameof(GetById), new { Id = newCommand.Id }, newCommand);
+    }
 
-        [HttpGet("{platform}/1")]
-        public ActionResult<List<Command>> GetByPlatform(string platform)
+    [HttpDelete("{id}")]
+    public ActionResult DeleteCommand(int id)
+    {
+        var deleteStatus = _service.DeleteCommand(id);
+        if (deleteStatus)
         {
-            var commands = _service.GetCommand(platform);
-            if (commands != null)
-            {
-                return Ok(commands);
-            }
-            return NotFound();
+            return Ok();
         }
+        return NotFound();
+    }
 
-        [HttpPost]
-        public ActionResult<Command> AddCommand(Command newCommand)
+    [HttpPut("{id}")]
+    public ActionResult EditCommand(int id, Command commandToEdit)
+    {
+        var editStatus = _service.EditCommand(id, commandToEdit);
+        if (editStatus)
         {
-            var result = _service.AddCommand(newCommand);
-            if (!result)
-            {
-                throw new ArgumentNullException(nameof(newCommand));
-            }
-            return CreatedAtAction(nameof(GetById), new { Id = newCommand.Id }, newCommand);
+            return Ok();
         }
-
-        [HttpDelete("{id}")]
-        public ActionResult DeleteCommand(int id)
+        else
         {
-            var deleteStatus = _service.DeleteCommand(id);
-            if (deleteStatus)
-            {
-                return Ok();
-            }
-            return NotFound();
+            return BadRequest();
         }
-
-        [HttpPut("{id}")]
-        public ActionResult EditCommand(int id, Command commandToEdit)
-        {
-            var editStatus = _service.EditCommand(id, commandToEdit);
-            if (editStatus)
-            {
-                return Ok();
-            } else {
-                return BadRequest();
-            }
-
-        }
-
 
     }
 }

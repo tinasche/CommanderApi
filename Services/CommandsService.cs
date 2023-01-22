@@ -1,5 +1,4 @@
-using VersedApi.Data;
-using VersedApi.Models;
+#nullable disable
 
 namespace VersedApi.Services
 {
@@ -63,15 +62,16 @@ namespace VersedApi.Services
         {
             var commands = _context.Commands.Where<Command>(c => c.Platform == byPlatform);
             return commands.ToList<Command>();
+
+            // return await _context.Commands.AllAsync(c => c.Platform == byPlatform);
         }
 
         public Command GetCommandById(int id)
         {
-            var commandToGet = _context.Commands.FirstOrDefault(c => c.Id == id);
-            return commandToGet;
+            return _context.Commands.FirstOrDefault(c => c.Id == id);
         }
 
-        public List<Command> GetCommands()
+        public List<Command>  GetCommands()
         {
             return _context.Commands.ToList<Command>();
         }
